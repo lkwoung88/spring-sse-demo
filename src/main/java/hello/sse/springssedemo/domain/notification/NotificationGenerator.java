@@ -20,17 +20,18 @@ public class NotificationGenerator {
 
     private final NotificationRepository notificationRepository;
     private final SseEmitterService sseEmitterService;
+    private static int sequence = 1;
 
     @Scheduled(fixedRate = 1000 * 5, initialDelay = 1000)
     public void generateNotification() {
 
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         LocalDateTime now = Timestamp.valueOf(dateFormat.format(new Date())).toLocalDateTime();
 
-        int sequence = 1;
 
         Notification notification = Notification.builder()
-                .content("content id = " + sequence++)
+                .content("msg = " + sequence++)
                 .registerDate(now)
                 .build();
 
