@@ -24,17 +24,13 @@ public class NotificationGenerator {
 
     @Scheduled(fixedRate = 1000 * 5, initialDelay = 1000)
     public void generateNotification() {
-
-
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         LocalDateTime now = Timestamp.valueOf(dateFormat.format(new Date())).toLocalDateTime();
-
 
         Notification notification = Notification.builder()
                 .content("msg = " + sequence++)
                 .registerDate(now)
                 .build();
-
         notificationRepository.save(notification);
 
         sseEmitterService.broadcast(notification);
